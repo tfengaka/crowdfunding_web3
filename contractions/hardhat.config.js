@@ -3,7 +3,6 @@ require("dotenv").config();
 module.exports = {
 	solidity: {
 		version: "0.8.9",
-		defaultNewtwork: "goerli",
 		networks: {
 			hardhat: {},
 			bsc_testnet: {

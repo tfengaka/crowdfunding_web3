@@ -1,0 +1,75 @@
+@import url("https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply transition-all duration-300;
+}
+
+.linear-gradient {
+  background: linear-gradient(179.14deg, rgba(32, 18, 63, 0) -7.14%, #000000 87.01%);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(0.8);
+}
+
+// React Quill Customization
+.ql-picker,
+.ql-snow .ql-picker {
+  @apply text-white;
+}
+
+.ql-stroke,
+.ql-snow .ql-stroke {
+  @apply stroke-white;
+}
+
+.ql-fill,
+.ql-snow .ql-fill {
+  @apply fill-white;
+}
+
+.ql-toolbar.ql-snow {
+  @apply font-epilogue font-medium rounded-t-[3px] bg-[#3A3A43] border-none;
+
+  .ql-picker.ql-expanded .ql-picker-options {
+    @apply bg-[#1C1C24]  border-[#3A3A43] rounded-lg;
+
+    .ql-picker-item {
+      @apply bg-[#1C1C24] text-white hover:text-[#06c];
+    }
+  }
+}
+.ql-tooltip.ql-editing {
+  @apply bg-[#1C1C24] text-white border-[#3A3A43] rounded-lg;
+  input {
+    @apply text-[#1C1C24];
+  }
+}
+.ql-container.ql-snow {
+  @apply font-epilogue font-medium border-none;
+
+  .ql-editor {
+    @apply font-epilogue text-sm font-medium h-[355px] overflow-y-scroll text-white p-[15px];
+    &::-webkit-scrollbar {
+      @apply w-[6px];
+      -webkit-appearance: none;
+    }
+    &::-webkit-scrollbar-track {
+      @apply bg-[#1c1c24];
+    }
+    &::-webkit-scrollbar-thumb {
+      @apply bg-[#3A3A43];
+    }
+    &.ql-blank::before {
+      @apply font-semibold not-italic text-base;
+    }
+    &.ql-blank::before {
+      @apply text-[#4B5264];
+    }
+  }
+}

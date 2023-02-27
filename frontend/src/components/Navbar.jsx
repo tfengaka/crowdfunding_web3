@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 
-import { CustomButton } from './';
-import { Searching } from '../modules';
 import { menu, thirdweb } from '../assets';
 import { navlinks } from '../constants';
+import { Searching } from '../modules';
+import { CustomButton } from './';
 
 const address = '0x3f5CE5FBFe....';
 
 function Navbar() {
   const navigate = useNavigate();
-  const [isActive, setIsActive] = useState('dashboard');
   const [toggleDrawer, setToggleDrawer] = useState(false);
 
   return (
@@ -52,32 +51,23 @@ function Navbar() {
             !toggleDrawer ? 'translate-x-[100vh]' : 'translate-x-0'
           } duration-500`}
         >
-          <ul className="mb-4">
+          <div className="mb-4">
             {navlinks.map((link) => (
-              <li
+              <NavLink
                 key={link.name}
-                className={`${isActive === link.name && 'bg-[#3a3a43]'} flex p-4 rounded-sm`}
-                onClick={() => {
-                  setIsActive(link.name);
-                  setToggleDrawer(false);
-                  navigate(link.link);
-                }}
+                to={link.link}
+                className={({ isActive }) =>
+                  `${
+                    isActive ? 'bg-[#3a3a43] grayscale-0 text-[#1dc071]' : 'grayscale text-[#808191]'
+                  } flex p-4 rounded-sm`
+                }
+                onClick={() => setToggleDrawer(false)}
               >
-                <img
-                  src={link.imgUrl}
-                  alt={link.name}
-                  className={`w-[24px] h-[24px] object-contain ${isActive === link.name ? 'grayscale-0' : 'grayscale'}`}
-                />
-                <p
-                  className={`ml-[20px] font-epilogue font-semibold text-sm capitalize ${
-                    isActive === link.name ? 'text-[#1dc071]' : 'text-[#808191]'
-                  }`}
-                >
-                  {link.name}
-                </p>
-              </li>
+                <img src={link.imgUrl} alt={link.name} className={`w-[24px] h-[24px] object-contain`} />
+                <p className="ml-[20px] font-epilogue font-semibold text-sm capitalize">{link.name}</p>
+              </NavLink>
             ))}
-          </ul>
+          </div>
           <div className="flex mx-4">
             <CustomButton
               btnType="button"
