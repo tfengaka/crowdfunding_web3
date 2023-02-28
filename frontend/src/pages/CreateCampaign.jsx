@@ -1,22 +1,39 @@
 import React, { useState } from 'react';
 import { ethers } from 'ethers';
-
-import { CustomButton } from '../components';
+import { useStateContext } from '../context';
+import { CustomButton, Loading } from '../components';
 import { FormField, FormGroup, Input, Label, TextEditor } from '../components/ hookform';
 import { checkIfImage } from '../utils';
 import { money } from '../assets';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 function CreateCampaign() {
   const {
     control,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm();
+  const { publishCampaign } = useStateContext();
+
+  const [isLoading, setIsLoading] = useState(false);
   const [story, setStory] = useState('');
 
   const handleCreateCampaign = (data) => {
-    console.log({ ...data, story });
+    setIsLoading(true);
+    const form = { ...data, description: story };
+    checkIfImage(form.image, async (exists) => {
+      if (exists) {
+        await publishCampaign({ ...form, target: ethers.utils.parseEther(form.target) });
+        toast.success('Campaign created successfully');
+      } else {
+        toast.error('Provide a valid image URL');
+        alert('Provide a valid image URL');
+        setValue('image', '');
+      }
+    });
+    setIsLoading(false);
   };
 
   return (
@@ -26,6 +43,7 @@ function CreateCampaign() {
           Start a Campaign 🚀
         </h1>
       </div>
+      {isLoading && <Loading />}
       <form onSubmit={handleSubmit(handleCreateCampaign)} className="w-full mt-[65px] flex flex-col gap-[30px]">
         <FormGroup>
           <FormField>

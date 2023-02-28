@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 
-import { menu, thirdweb } from '../assets';
+import { useStateContext } from '../context';
+import { logo, menu, thirdweb } from '../assets';
 import { navlinks } from '../constants';
 import { Searching } from '../modules';
 import { CustomButton } from './';
 
-const address = '0x3f5CE5FBFe....';
-
 function Navbar() {
   const navigate = useNavigate();
+  const { address, connectMetamask } = useStateContext();
   const [toggleDrawer, setToggleDrawer] = useState(false);
 
   return (
@@ -23,7 +23,7 @@ function Navbar() {
           onClick={() => {
             if (address) navigate('campaign/create');
             else {
-              console.log('Connect wallet');
+              connectMetamask();
             }
           }}
         />
@@ -37,7 +37,7 @@ function Navbar() {
       {/* Mobile screen navigation */}
       <div className="relative flex items-center justify-between sm:hidden">
         <div className="w-[40px] h-[40px] rounded-[10px] bg-[#2c2f32] flex justify-center items-center cursor-pointer">
-          <img src={thirdweb} alt="user" className="w-[60%] h-[60%] object-contain" />
+          <img src={logo} alt="user" className="w-[60%] h-[60%] object-contain" />
         </div>
 
         <img
@@ -76,7 +76,7 @@ function Navbar() {
               onClick={() => {
                 if (address) navigate('campaign/create');
                 else {
-                  console.log('Connect wallet');
+                  connectMetamask();
                 }
               }}
             />

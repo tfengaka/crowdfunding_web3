@@ -1,16 +1,19 @@
+import { ChainId, ThirdwebProvider } from '@thirdweb-dev/react';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import { ChainId, ThirdwebProvider } from '@thirdweb-dev/react';
 import App from './App';
+import { ContextProviver } from './context';
 import './index.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-  <ThirdwebProvider chainId={ChainId.BinanceSmartChainTestnet}>
+  <ThirdwebProvider chainId={ChainId.BinanceSmartChainTestnet} activeChain="binance-testnet">
     <BrowserRouter>
-      <App />
+      <ContextProviver>
+        <App />
+      </ContextProviver>
     </BrowserRouter>
   </ThirdwebProvider>
 );
