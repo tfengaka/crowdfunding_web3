@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
 import { ethers } from 'ethers';
-import { useStateContext } from '../context';
-import { CustomButton, Loading } from '../components';
-import { FormField, FormGroup, Input, Label, TextEditor } from '../components/ hookform';
-import { checkIfImage } from '../utils';
-import { money } from '../assets';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import { money } from '../assets';
+import { Backdrop, CustomButton, Loading } from '../components';
+import { FormField, FormGroup, Input, Label, TextEditor } from '../components/ hookform';
+import { useStateContext } from '../context';
+import { checkIfImage } from '../utils';
 
 function CreateCampaign() {
   const {
@@ -43,8 +43,16 @@ function CreateCampaign() {
           Start a Campaign 🚀
         </h1>
       </div>
-      {isLoading && <Loading />}
-      <form onSubmit={handleSubmit(handleCreateCampaign)} className="w-full mt-[65px] flex flex-col gap-[30px]">
+      {isLoading && (
+        <Backdrop>
+          <Loading />
+        </Backdrop>
+      )}
+      <form
+        onSubmit={handleSubmit(handleCreateCampaign)}
+        className="w-full mt-[65px] flex flex-col gap-[30px]"
+        autoComplete="off"
+      >
         <FormGroup>
           <FormField>
             <Label label="Your Name" htmlFor="fullname" required />
